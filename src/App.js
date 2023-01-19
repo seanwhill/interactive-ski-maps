@@ -57,9 +57,14 @@ function App() {
         const canvas = ref[0].current;
         const ctx = canvas.getContext('2d');
 
-        // Get the coordinates of the mouse relative to the canvas
-        const x = event.clientX - canvas.offsetLeft;
-        const y = event.clientY - canvas.offsetTop;
+
+        //Fixed static property
+        // const x = event.clientX - canvas.offsetLeft;
+        // const y = event.clientY - canvas.offsetTop;
+
+        // Get the coordinates of the mouse relative to the client viewport,
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
 
         var pixels = ctx.getImageData(x - 7.5, y - 7.5, 15, 15).data;
         for (var i = 0; i < pixels.length; i += 4) {
