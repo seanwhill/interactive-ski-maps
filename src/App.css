@@ -9,12 +9,12 @@
   z-index: 1;
 }
 
-.gran_lift {
+.gran {
   position: absolute;
   top: 67px;
   left: 946px;
   z-index: 2;
-  opacity: .3;
+  opacity: .4;
 }
 
 .sjourn {
@@ -22,16 +22,412 @@
   top: 47px;
   left: 928px;
   z-index: 2;
-  opacity: .3;
+  opacity: .4;
 }
 
-.test {
+.great-north {
+  position: absolute;
+  top: 84px;
+  left: 311px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.doe-run {
+  position: absolute;
+  top: 404px;
+  left: 880px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.charlie {
+  position: absolute;
+  top: 297px;
+  left: 723px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.grand-prix {
+  position: absolute;
+  top: 182px;
+  left: 815px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.osprey {
+  position: absolute;
+  top: 91px;
+  left: 817px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.sjourn-double {
+  position: absolute;
+  top: 69px;
+  left: 983px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.red-fox {
+  position: absolute;
+  top: 189px;
+  left: 680px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.vern-triple {
+  position: absolute;
+  top: 91px;
+  left: 449px;
+  z-index: 3;
+  opacity: .4;
+}
+
+.cab {
+  position: absolute;
+  top: 88px;
+  left: 258px;
+  z-index: 3;
+  opacity: .4;
+}
+
+.silver-fox {
+  position: absolute;
+  top: 198px;
+  left: 721px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.fox-tail {
+  position: absolute;
+  top: 231px;
+  left: 682px;
+  z-index: 2;
+  opacity: .4;
+}
+
+
+.garden-state {
+  position: absolute;
+  top: 303px;
+  left: 359px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.straightaway {
+  position: absolute;
+  top: 111px;
+  left: 448px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.twist {
+  position: absolute;
+  top: 125px;
+  left: 534px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.upper-horizon {
+  position: absolute;
+  top: 90px;
+  left: 182px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.ind-pass {
+  position: absolute;
+  top: 224px;
+  left: 167px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.inde-pass {
+  position: absolute;
+  top: 229px;
+  left: 246px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.khyber {
+  position: absolute;
+  top: 222px;
+  left: 127px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.sayon {
+  position: absolute;
+  top: 400px;
+  left: 264px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.capride {
+  position: absolute;
+  top: 455px;
+  left: 227px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.triple-bound {
+  position: absolute;
+  top: 639px;
+  left: 311px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.sugar {
+  position: absolute;
+  top: 444px;
+  left: 164px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.sugar-quad {
+  position: absolute;
+  top: 432px;
+  left: 121px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.matchmaker {
+  position: absolute;
+  top: 490px;
+  left: 210px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.low-straight {
+  position: absolute;
+  top: 341px;
+  left: 385px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.zero {
+  position: absolute;
+  top: 299px;
+  left: 434px;
+  z-index: 2;
+  opacity: .4;
+}
+
+.south-x {
+  position: absolute;
+  top: 60px;
+  left: 1483px;
+  z-index: 4;
+  opacity: .4;
+}
+
+.bear-x {
+  position: absolute;
+  top: 286px;
+  left: 1507px;
+  z-index: 2;
+  opacity: .4;
+}
+
+
+.canyon {
+  z-index: 3;
+  position: absolute;
+  top: 69px;
+  left: 1737px;
+  opacity: .4;
+}
+
+.jumpin {
+  z-index: 3;
+  position: absolute;
+  top: 81px;
+  left: 1809px;
+  opacity: .4;
+}
+
+.red-tail {
+  z-index: 3;
+  position: absolute;
+  top: 67px;
+  left: 1840px;
+  opacity: .4;
+}
+
+.drivets {
+  z-index: 3;
+  position: absolute;
+  top: 217px;
+  left: 1793px;
+  opacity: .4;
+}
+
+.buddy {
+  z-index: 3;
+  position: absolute;
+  top: 230px;
+  left: 1763px;
+  opacity: .4;
+}
+
+.lark {
+  z-index: 3;
+  position: absolute;
+  top: 239px;
+  left: 1720px;
+  opacity: .4;
+}
+
+.giant {
+  z-index: 3;
+  position: absolute;
+  top: 225px;
+  left: 1657px;
+  opacity: .4;
+}
+
+.lift-line {
+  z-index: 3;
+  position: absolute;
+  top: 288px;
+  left: 1698px;
+  opacity: .4;
+}
+
+.gully {
+  z-index: 3;
+  position: absolute;
+  top: 392px;
+  left: 1553px;
+  opacity: .4;
+}
+
+.bakers {
+  z-index: 3;
+  position: absolute;
+  top: 428px;
+  left: 1535px;
+  opacity: .4;
+}
+
+.cloud {
+  z-index: 3;
+  position: absolute;
+  top: 569px;
+  left: 1473px;
+  opacity: .4;
+}
+
+.tail {
+  z-index: 3;
+  position: absolute;
+  top: 576px;
+  left: 1490px;
+  opacity: .4;
+}
+
+.arena {
+  z-index: 3;
+  position: absolute;
+  top: 655px;
+  left: 1542px;
+  opacity: .4;
+}
+
+.halleys {
+  z-index: 3;
+  position: absolute;
+  top: 431px;
+  left: 1593px;
+  opacity: .4;
+}
+
+.bunks {
+  z-index: 3;
+  position: absolute;
+  top: 308px;
+  left: 1963px;
+  opacity: .4;
+}
+
+.race {
+  z-index: 3;
+  position: absolute;
+  top: 291px;
+  left: 1793px;
+  opacity: .4;
+}
+
+.big-bear {
+  z-index: 1;
+  position: absolute;
+  top: 303px;
+  left: 1806px;
+  opacity: .4;
+}
+
+.gorge {
+  z-index: 1;
+  position: absolute;
+  top: 436px;
+  left: 1556px;
+  opacity: .4;
+}
+
+.kami {
+  z-index: 1;
+  position: absolute;
+  top: 392px;
+  left: 1590px;
+  opacity: .4;
+}
+
+.als {
+  z-index: 1;
+  position: absolute;
+  top: 466px;
+  left: 1879px;
+  opacity: .4;
+}
+
+.wacky {
+  z-index: 1;
+  position: absolute;
+  top: 507px;
+  left: 1748px;
+  opacity: .4;
+}
+
+
+
+/* . {
   z-index: 3;
   position: absolute;
   top: 67px;
   left: 946px;
   opacity: 1;
-}
+} */
 
 /* 
 .gran:hover {
@@ -44,4 +440,8 @@
 
 .open {
   opacity: 1;
+}
+
+.notOpen {
+  opacity: .2;
 }
