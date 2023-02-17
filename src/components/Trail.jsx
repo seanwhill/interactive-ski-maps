@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { creek_id_map } from "../config"
+import { creek_id_map } from "../config/config"
 
 export const Trail = ({ onRef, selected, imgVal, id, trailStatus }) => {
   const ref = useRef(null)

@@ -140,7 +140,7 @@ const App = () => {
         containerWidth={width}
         containerHeight={height}
 
-        url={require('./trails/x_0000_Gran-Lift.png')}
+        url={'/trails/x_0000_Gran-Lift.png'}
       />
     </div>
   );

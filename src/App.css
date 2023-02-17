@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .image {
@@ -430,7 +430,7 @@
 } */
 
 /* 
-.gran:hover {
+.gran:hover {e
   opacity: 1;
 } */
 
@@ -443,5 +443,5 @@
 }
 
 .notOpen {
-  opacity: .2;
+  opacity: .3;
 }
