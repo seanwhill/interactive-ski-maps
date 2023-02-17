@@ -65,7 +65,7 @@ export const trails = [
         id: "silver-fox",
         top: 198,
         left: 721,
-        url: "'./trails/x_0011_Silver-fox.png"
+        url: "./trails/x_0011_Silver-fox.png"
     },
     {
         id: "fox-tail",

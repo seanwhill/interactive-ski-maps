@@ -16,6 +16,10 @@ function App() {
   const [containerWidth, setcontainerWidth] = useState(2048);
   const [containerHeight, setContainerHeight] = useState(1027);
 
+  const origContainerWidth = 2048
+  const origContainerHeight = 1027
+  const containerAspectRatio = origContainerWidth / origContainerHeight
+
   useEffect(() => {
 
     const fetchData = async () => {
@@ -24,6 +28,9 @@ function App() {
     }
 
     fetchData()
+
+    //Handle Resize on load so fits screen
+    handleResize()
 
     // Change zoom level on mount
     // document.body.style.zoom = "90%";
@@ -86,9 +93,6 @@ function App() {
   }
 
   const handleResize = () => {
-    const origContainerWidth = 2048
-    const origContainerHeight = 1027
-    const containerAspectRatio = origContainerWidth / origContainerHeight
 
     // console.log("Container Aspect: ", containerAspectRatio)
 
