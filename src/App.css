@@ -450,27 +450,6 @@
   left: 0;
 }*/
 
-@media (orientation: portrait) {
-  .mobile {
-    transform: rotate(0deg);
-    transform-origin: top left;
-    width: 100vh;
-    height: 100vw;
-    /* overflow-x: hidden; */
-    overflow-y: auto;
-  }
-}
-
-@media (orientation: landscape) {
-  .mobile {
-    transform: rotate(90deg);
-    transform-origin: top left;
-    width: 100%;
-    height: 100%;
-    /* overflow-x: auto; */
-    overflow-y: hidden;
-  }
-}
 
 .open {
   opacity: 1;
