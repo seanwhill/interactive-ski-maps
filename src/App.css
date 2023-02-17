@@ -438,6 +438,18 @@
   opacity: 1;
 } */
 
+/* 
+html {
+  transform: rotate(-90deg);
+  transform-origin: left top;
+  width: 100vh;
+  height: 100vw;
+  overflow-x: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}*/
+
 .open {
   opacity: 1;
 }

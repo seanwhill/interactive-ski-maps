@@ -2,6 +2,7 @@ import './App.css';
 import { createRef, memo, useEffect, useMemo, useRef, useState } from 'react';
 import { getTrailStatus } from './api/trailStats';
 import { trails } from './config/trailConfig';
+import { Dimensions } from 'react-native'
 
 import ResizeAbleTrail from './components/ResizeAbleTrail';
 
@@ -19,6 +20,30 @@ function App() {
   const origContainerWidth = 2048
   const origContainerHeight = 1027
   const containerAspectRatio = origContainerWidth / origContainerHeight
+
+  const [orientation, setOrientation] = useState("PORTRAIT");
+
+  useEffect(() => {
+    Dimensions.addEventListener('change', ({ window: { width, height } }) => {
+      if (width < height) {
+        console.log("PORTRAIT")
+        setOrientation("PORTRAIT")
+      } else {
+        console.log("LANDSCAPE")
+        setOrientation("LANDSCAPE")
+
+      }
+    })
+
+
+    return () => {
+      // Restore default value
+      // document.body.style.zoom = initialValue;
+      window.removeEventListener('change');
+
+    };
+
+  }, []);
 
   useEffect(() => {
 
@@ -96,7 +121,23 @@ function App() {
 
     // console.log("Container Aspect: ", containerAspectRatio)
 
-    const newWidth = window.innerWidth * window.devicePixelRatio
+    // console.log("innerwWidth: ", window.innerWidth)
+    // console.log("visualWidth: ", window.visualViewport.width)
+
+    // console.log(Dimensions.get('window').width)
+    // console.log(Dimensions.get('window').height)
+
+    const isMobile = window.innerWidth <= 768;
+    // console.log(isMobile)
+
+    let newWidth;
+    if (!isMobile) {
+      newWidth = window.innerWidth * window.devicePixelRatio
+    }
+    else {
+      newWidth = window.innerWidth
+    }
+
     const newHeight = newWidth / containerAspectRatio;
 
     // console.log("New Height: ", newHeight)
@@ -121,6 +162,8 @@ function App() {
               position: 'relative',
               width: containerWidth,
               height: containerHeight,
+              // width: "100%",
+              // aspectRatio: containerWidth / containerHeight,
               backgroundImage: `url(${require("./Background-SouthExpress-Fixed.png")})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
