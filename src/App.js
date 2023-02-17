@@ -22,6 +22,7 @@ function App() {
   const containerAspectRatio = origContainerWidth / origContainerHeight
 
   const [orientation, setOrientation] = useState("PORTRAIT");
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     Dimensions.addEventListener('change', ({ window: { width, height } }) => {
@@ -121,28 +122,31 @@ function App() {
 
     // console.log("Container Aspect: ", containerAspectRatio)
 
-    // console.log("innerwWidth: ", window.innerWidth)
-    // console.log("visualWidth: ", window.visualViewport.width)
+    console.log("innerwWidth: ", window.innerWidth)
+    console.log("visualWidth: ", window.visualViewport.width)
 
-    // console.log(Dimensions.get('window').width)
-    // console.log(Dimensions.get('window').height)
+    console.log(Dimensions.get('window').width)
+    console.log(Dimensions.get('window').height)
+    console.log(Dimensions.get('screen').width)
+    console.log(Dimensions.get('screen').height)
 
     const isMobile = window.innerWidth <= 768;
-    // console.log(isMobile)
+    console.log(isMobile)
 
     let newWidth;
     if (!isMobile) {
       newWidth = window.innerWidth * window.devicePixelRatio
     }
     else {
-      newWidth = window.innerWidth
+      setIsMobile(true)
     }
+    newWidth = window.innerWidth
 
     const newHeight = newWidth / containerAspectRatio;
 
-    // console.log("New Height: ", newHeight)
-    // console.log("NEW IDTH: ", newWidth)
-    // console.log("New Container Aspect Ratio: ", newWidth / newHeight)
+    console.log("New Height: ", newHeight)
+    console.log("NEW IDTH: ", newWidth)
+    console.log("New Container Aspect Ratio: ", newWidth / newHeight)
 
     setcontainerWidth(newWidth);
     setContainerHeight(newHeight);
@@ -151,7 +155,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className={`App ${isMobile ? "mobile" : ""}`}>
       <header className="App-header">
 
         <div
