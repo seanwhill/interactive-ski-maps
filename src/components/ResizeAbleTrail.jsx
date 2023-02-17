@@ -42,7 +42,7 @@ const ResizeAbleTrail = ({ top, left, containerWidth, containerHeight, url, onRe
 
   const handleImageLoad = (id, ref) => {
     const canvas = ref.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
     const img = document.getElementById(id);
 
@@ -63,7 +63,7 @@ const ResizeAbleTrail = ({ top, left, containerWidth, containerHeight, url, onRe
     <div>
       <img
         onLoad={() => handleImageLoad(id, ref)}
-        src={url} id={id} alt="logo" usemap="#workmap" />
+        src={url} id={id} alt="logo" useMap="#workmap" />
       <canvas
         ref={ref}
         style={{

@@ -125,7 +125,7 @@ function App() {
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
-            alt="logo" id="container" usemap="#workmap" />
+            alt="logo" id="container" useMap="#workmap" />
 
 
           {/* <img src={require('./Background-SouthExpress-Fixed.png')} className="image" alt="logo" usemap="#workmap" /> */}

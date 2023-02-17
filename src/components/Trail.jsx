@@ -39,7 +39,7 @@ export const Trail = ({ onRef, selected, imgVal, id, trailStatus }) => {
     <div>
       <img
         onLoad={() => handleImageLoad(id, ref)}
-        src={imgVal} id={id} alt="logo" usemap="#workmap" />
+        src={imgVal} id={id} alt="logo" useMap="#workmap" />
       <canvas
         ref={ref}
         className={`${id} ${selected === id || (trailStatus && trailStatus[creek_id_map[id]] === "Open") ? "open" : "notOpen"}`} />
