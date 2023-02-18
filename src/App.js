@@ -24,27 +24,27 @@ function App() {
   const [orientation, setOrientation] = useState("PORTRAIT");
   const [isMobile, setIsMobile] = useState(false)
 
-  useEffect(() => {
-    Dimensions.addEventListener('change', ({ window: { width, height } }) => {
-      if (width < height) {
-        console.log("PORTRAIT")
-        setOrientation("PORTRAIT")
-      } else {
-        console.log("LANDSCAPE")
-        setOrientation("LANDSCAPE")
+  // useEffect(() => {
+  //   Dimensions.addEventListener('change', ({ window: { width, height } }) => {
+  //     if (width < height) {
+  //       console.log("PORTRAIT")
+  //       setOrientation("PORTRAIT")
+  //     } else {
+  //       console.log("LANDSCAPE")
+  //       setOrientation("LANDSCAPE")
 
-      }
-    })
+  //     }
+  //   })
 
 
-    return () => {
-      // Restore default value
-      // document.body.style.zoom = initialValue;
-      window.removeEventListener('change');
+  //   return () => {
+  //     // Restore default value
+  //     // document.body.style.zoom = initialValue;
+  //     window.removeEventListener('change');
 
-    };
+  //   };
 
-  }, []);
+  // }, []);
 
   useEffect(() => {
 
@@ -130,7 +130,7 @@ function App() {
     console.log(Dimensions.get('screen').width)
     console.log(Dimensions.get('screen').height)
 
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = Dimensions.get('window').width <= 900;
     console.log(isMobile)
 
     let newWidth;
@@ -139,8 +139,9 @@ function App() {
     }
     else {
       setIsMobile(true)
+      console.log('here')
+      newWidth = Dimensions.get('window').width
     }
-    newWidth = window.innerWidth
 
     const newHeight = newWidth / containerAspectRatio;
 
@@ -155,7 +156,7 @@ function App() {
 
 
   return (
-    <div className={`App ${isMobile ? "mobile" : ""}`}>
+    <div className={`App ${isMobile ? "mobile" : ""}`} style={{ maxWidth: containerWidth }}>
       <header className="App-header">
 
         <div
