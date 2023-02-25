@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Test from "./Test"
 import reportWebVitals from './reportWebVitals';
+import PortraitLandscape from './PortraitLandscape';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

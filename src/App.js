@@ -2,10 +2,19 @@ import './App.css';
 import { createRef, memo, useEffect, useMemo, useRef, useState } from 'react';
 import { getTrailStatus } from './api/trailStats';
 import { trails } from './config/trailConfig';
-import { Dimensions } from 'react-native'
+import { Dimensions, Platform, useWindowDimensions } from 'react-native'
 
 import ResizeAbleTrail from './components/ResizeAbleTrail';
 
+function usePrevious(value) {
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current = value;
+  });
+
+  return ref.current;
+}
 
 function App() {
   const [selected, setSelected] = useState("")
@@ -21,57 +30,49 @@ function App() {
   const origContainerHeight = 1027
   const containerAspectRatio = origContainerWidth / origContainerHeight
 
-  const [orientation, setOrientation] = useState("PORTRAIT");
-  const [isMobile, setIsMobile] = useState(false)
+  // const [isMobile, setIsMobile] = useState(false)
 
-  // useEffect(() => {
-  //   Dimensions.addEventListener('change', ({ window: { width, height } }) => {
-  //     if (width < height) {
-  //       console.log("PORTRAIT")
-  //       setOrientation("PORTRAIT")
-  //     } else {
-  //       console.log("LANDSCAPE")
-  //       setOrientation("LANDSCAPE")
+  const [width, setWidth] = useState(Dimensions.get('window').width);
 
-  //     }
-  //   })
+  const [height, setHeight] = useState(Dimensions.get('window').height);
+
+  const [orientation, setOrientation] = useState('');
+  const [prevOrientation, setPrevOrientation] = useState('');
+
+  const [orientationChanged, setOrientationChanged] = useState(false)
 
 
-  //   return () => {
-  //     // Restore default value
-  //     // document.body.style.zoom = initialValue;
-  //     window.removeEventListener('change');
 
-  //   };
-
-  // }, []);
 
   useEffect(() => {
-
     const fetchData = async () => {
       let status = await getTrailStatus()
       setTrailStatus(status)
     }
 
+    x(true)
     fetchData()
+  }, [])
 
-    //Handle Resize on load so fits screen
-    handleResize()
+  useEffect(() => {
 
-    // Change zoom level on mount
-    // document.body.style.zoom = "90%";
-    // const initialValue = document.body.style.zoom;
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', function (e) {
+      handleResize(false)
+    });
+
+
+    handleResize(true)
+
 
     return () => {
-      // Restore default value
-      // document.body.style.zoom = initialValue;
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', function (e) {
+        handleResize(false)
+      });
 
     };
 
-  }, [])
+  }, [orientation])
 
 
   //TODO only run every 20 or so pixels. Expensive computation
@@ -118,47 +119,124 @@ function App() {
     setRefs(prevRefs => [...prevRefs, [ref, id]]);
   }
 
-  const handleResize = () => {
+  const handleResize = (initalLoad) => {
+    function getOrientation() {
+      return window.matchMedia('(orientation: portrait)').matches ? 'portrait' : 'landscape';
+    }
+
 
     // console.log("Container Aspect: ", containerAspectRatio)
 
-    console.log("innerwWidth: ", window.innerWidth)
-    console.log("visualWidth: ", window.visualViewport.width)
+    // const isMobile = Dimensions.get('window').width <= 900;
 
-    console.log(Dimensions.get('window').width)
-    console.log(Dimensions.get('window').height)
-    console.log(Dimensions.get('screen').width)
-    console.log(Dimensions.get('screen').height)
+    // let newWidth;
+    // if (!isMobile) {
+    //   newWidth = window.innerWidth * window.devicePixelRatio
+    // }
+    // else {
+    //   // setIsMobile(true)
+    //   newWidth = Dimensions.get('window').width
+    // }
 
-    const isMobile = Dimensions.get('window').width <= 900;
-    console.log(isMobile)
+    // const newHeight = newWidth / containerAspectRatio;
 
-    let newWidth;
-    if (!isMobile) {
-      newWidth = window.innerWidth * window.devicePixelRatio
-    }
-    else {
-      setIsMobile(true)
-      console.log('here')
-      newWidth = Dimensions.get('window').width
-    }
+    const newOrientation = getOrientation();
 
-    const newHeight = newWidth / containerAspectRatio;
+    // console.log("IS MOBILE: ", isMobile)
 
-    console.log("New Height: ", newHeight)
-    console.log("NEW IDTH: ", newWidth)
-    console.log("New Container Aspect Ratio: ", newWidth / newHeight)
+    // console.log("----------------------------")
+    // console.log("Handle Resize Called")
+    // console.log("Resize Prev:", orientation)
+    // console.log("Resize ori:", newOrientation)
 
-    setcontainerWidth(newWidth);
-    setContainerHeight(newHeight);
+
+    // if (initalLoad || !isMobile) {
+    //   // console.log("RESIZING")
+    //   setcontainerWidth(newWidth);
+    //   setContainerHeight(newHeight);
+    // }
+
+
+    // prevOrientationRef.current = orientation;
+    // if (orientation != newOrientation) {
+    //   setPrevOrientation(orientation)
+    //   setOrientation(newOrientation);
+    //   setOrientationChanged(true)
+    // }
+
+
   };
 
 
+  const x = (initalLoad) => {
+    // console.log("new Orientation", orientation)
+    // console.log("Prev Orientation ", prevOrientation)
+    console.log("Orientation Changed ", orientationChanged)
+    const newWidth = width
+    const newHeight = newWidth / containerAspectRatio;
+
+    console.log("NEW WIDTH: ", newWidth)
+    console.log("NEW HEIGHT: ", newHeight)
+
+    if (orientationChanged || initalLoad) {
+      console.log('RESIZED')
+
+      setOrientationChanged(false)
+      setcontainerWidth(newWidth);
+      setContainerHeight(newHeight);
+    }
+
+
+  }
+
+  useEffect(() => {
+
+    x(false)
+
+  }, [orientation, prevOrientation, width, orientationChanged])
+
+  useEffect(() => {
+
+    console.log("Width is set now: ", width)
+
+    function getOrientation() {
+      return window.matchMedia('(orientation: portrait)').matches ? 'portrait' : 'landscape';
+    }
+    const newOrientation = getOrientation();
+
+    console.log("----------------------------")
+    console.log("Handle Resize Called")
+    console.log("Resize Prev:", orientation)
+    console.log("Resize ori:", newOrientation)
+
+    if (orientation != newOrientation) {
+      setPrevOrientation(orientation)
+      setOrientation(newOrientation);
+      setOrientationChanged(true)
+    }
+
+  }, [width])
+
+  useEffect(() => {
+    const handleDimensionsChange = () => {
+
+      setWidth(Dimensions.get('window').width);
+      setHeight(Dimensions.get('window').height);
+
+
+    };
+
+    Dimensions.addEventListener('change', handleDimensionsChange);
+
+    return () => {
+      Dimensions.removeEventListener('change', handleDimensionsChange);
+    };
+  }, [orientation]);
+
 
   return (
-    <div className={`App ${isMobile ? "mobile" : ""}`} style={{ maxWidth: containerWidth }}>
+    <div className={`App`} style={{ maxWidth: containerWidth }}>
       <header className="App-header">
-
         <div
           onMouseMove={handleMouseMoveNew}
         >
@@ -198,6 +276,11 @@ function App() {
 
         </div>
       </header >
+      <div>PREV: {prevOrientation}</div>
+
+      <div>ORIENTATION: {orientation}</div>
+      <button onClick={() => x()}></button>
+
     </div >
   );
 }
