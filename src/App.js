@@ -30,7 +30,7 @@ function App() {
   const origContainerHeight = 1027
   const containerAspectRatio = origContainerWidth / origContainerHeight
 
-  // const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   const [width, setWidth] = useState(Dimensions.get('window').width);
 
@@ -50,29 +50,14 @@ function App() {
       setTrailStatus(status)
     }
 
-    x(true)
+    function isMobileDevice() {
+      return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    }
+
+    setIsMobile(isMobileDevice())
+    updateSize(true)
     fetchData()
   }, [])
-
-  useEffect(() => {
-
-
-    window.addEventListener('resize', function (e) {
-      handleResize(false)
-    });
-
-
-    handleResize(true)
-
-
-    return () => {
-      window.removeEventListener('resize', function (e) {
-        handleResize(false)
-      });
-
-    };
-
-  }, [orientation])
 
 
   //TODO only run every 20 or so pixels. Expensive computation
@@ -119,67 +104,19 @@ function App() {
     setRefs(prevRefs => [...prevRefs, [ref, id]]);
   }
 
-  const handleResize = (initalLoad) => {
-    function getOrientation() {
-      return window.matchMedia('(orientation: portrait)').matches ? 'portrait' : 'landscape';
-    }
 
-
-    // console.log("Container Aspect: ", containerAspectRatio)
-
-    // const isMobile = Dimensions.get('window').width <= 900;
-
-    // let newWidth;
-    // if (!isMobile) {
-    //   newWidth = window.innerWidth * window.devicePixelRatio
-    // }
-    // else {
-    //   // setIsMobile(true)
-    //   newWidth = Dimensions.get('window').width
-    // }
-
-    // const newHeight = newWidth / containerAspectRatio;
-
-    const newOrientation = getOrientation();
-
-    // console.log("IS MOBILE: ", isMobile)
-
-    // console.log("----------------------------")
-    // console.log("Handle Resize Called")
-    // console.log("Resize Prev:", orientation)
-    // console.log("Resize ori:", newOrientation)
-
-
-    // if (initalLoad || !isMobile) {
-    //   // console.log("RESIZING")
-    //   setcontainerWidth(newWidth);
-    //   setContainerHeight(newHeight);
-    // }
-
-
-    // prevOrientationRef.current = orientation;
-    // if (orientation != newOrientation) {
-    //   setPrevOrientation(orientation)
-    //   setOrientation(newOrientation);
-    //   setOrientationChanged(true)
-    // }
-
-
-  };
-
-
-  const x = (initalLoad) => {
+  const updateSize = (initalLoad) => {
     // console.log("new Orientation", orientation)
     // console.log("Prev Orientation ", prevOrientation)
-    console.log("Orientation Changed ", orientationChanged)
+    // console.log("Orientation Changed ", orientationChanged)
     const newWidth = width
     const newHeight = newWidth / containerAspectRatio;
 
-    console.log("NEW WIDTH: ", newWidth)
-    console.log("NEW HEIGHT: ", newHeight)
+    // console.log("NEW WIDTH: ", newWidth)
+    // console.log("NEW HEIGHT: ", newHeight)
 
     if (orientationChanged || initalLoad) {
-      console.log('RESIZED')
+      // console.log('RESIZED')
 
       setOrientationChanged(false)
       setcontainerWidth(newWidth);
@@ -191,23 +128,23 @@ function App() {
 
   useEffect(() => {
 
-    x(false)
+    updateSize(false)
 
   }, [orientation, prevOrientation, width, orientationChanged])
 
   useEffect(() => {
 
-    console.log("Width is set now: ", width)
+    // console.log("Width is set now: ", width)
 
     function getOrientation() {
       return window.matchMedia('(orientation: portrait)').matches ? 'portrait' : 'landscape';
     }
     const newOrientation = getOrientation();
 
-    console.log("----------------------------")
-    console.log("Handle Resize Called")
-    console.log("Resize Prev:", orientation)
-    console.log("Resize ori:", newOrientation)
+    // console.log("----------------------------")
+    // console.log("Handle Resize Called")
+    // console.log("Resize Prev:", orientation)
+    // console.log("Resize ori:", newOrientation)
 
     if (orientation != newOrientation) {
       setPrevOrientation(orientation)
@@ -222,7 +159,6 @@ function App() {
 
       setWidth(Dimensions.get('window').width);
       setHeight(Dimensions.get('window').height);
-
 
     };
 
@@ -240,14 +176,14 @@ function App() {
         <div
           onMouseMove={handleMouseMoveNew}
         >
-          <img src={require('./Background-SouthExpress-Fixed.png')}
+          <img src={require('./mtnCreekInteractiveBackgroundSouth.png')}
             style={{
               position: 'relative',
               width: containerWidth,
               height: containerHeight,
               // width: "100%",
               // aspectRatio: containerWidth / containerHeight,
-              backgroundImage: `url(${require("./Background-SouthExpress-Fixed.png")})`,
+              backgroundImage: `url(${require("./mtnCreekInteractiveBackgroundSouth.png")})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
@@ -276,10 +212,10 @@ function App() {
 
         </div>
       </header >
-      <div>PREV: {prevOrientation}</div>
+      {/* <div>PREV: {prevOrientation}</div>
 
       <div>ORIENTATION: {orientation}</div>
-      <button onClick={() => x()}></button>
+      <button onClick={() => updateSize()}></button> */}
 
     </div >
   );
