@@ -115,7 +115,7 @@ function App() {
     // console.log("NEW WIDTH: ", newWidth)
     // console.log("NEW HEIGHT: ", newHeight)
 
-    if (orientationChanged || initalLoad) {
+    if (orientationChanged || initalLoad || !isMobile) {
       // console.log('RESIZED')
 
       setOrientationChanged(false)
