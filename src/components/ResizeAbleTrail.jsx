@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { creek_id_map } from "../config/config"
 
-const ResizeAbleTrail = ({ top, left, containerWidth, containerHeight, url, onRef, selected, id, trailStatus, overlayPrio }) => {
+const ResizeAbleTrail = ({ top, left, containerWidth, containerHeight, url, onRef, selected, id, trailStatus, overlayPrio, offsetWidth, offsetHeight }) => {
   const ref = useRef(null)
 
   const [originalWidth, setOriginalWidth] = useState(0)
@@ -28,8 +28,8 @@ const ResizeAbleTrail = ({ top, left, containerWidth, containerHeight, url, onRe
     const percentShrunk = 1 - (containerWidth / origContainerWidth)
     const newWidth = originalWidth - (originalWidth * percentShrunk)
     const newHeight = originalHeight - (originalHeight * percentShrunk)
-    const newLeft = left - (left * percentShrunk)
-    const newTop = top - (top * percentShrunk)
+    const newLeft = left + offsetWidth - (left * percentShrunk)
+    const newTop = top + offsetHeight - (top * percentShrunk)
 
 
     setNewWidth(newWidth)
