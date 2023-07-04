@@ -6,6 +6,7 @@ import { Dimensions, Platform, useWindowDimensions } from 'react-native'
 
 import ResizeAbleTrail from './components/ResizeAbleTrail';
 import Header from './components/Header';
+import Popup from './components/Popup';
 
 function usePrevious(value) {
   const ref = useRef();
@@ -18,7 +19,7 @@ function usePrevious(value) {
 }
 
 function App() {
-  const [selected, setSelected] = useState("")
+  const [selected, setSelected] = useState([null, ''])
 
   const [refs, setRefs] = useState([])
   const [trailStatus, setTrailStatus] = useState(null)
@@ -44,6 +45,12 @@ function App() {
 
   const [offsetWidth, setOffsetWidth] = useState(0)
   const [offsetHeight, setOffsetHeight] = useState(0)
+  const prevHovered = useRef('')
+
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,27 +70,16 @@ function App() {
 
   //TODO only run every 20 or so pixels. Expensive computation
   const handleMouseMoveNew = (event) => {
-    for (const ref of refs) {
+
+    function checkVals(ref) {
       const rect = ref[0].current.getBoundingClientRect();
 
       let clientX = event.clientX
       let clientY = event.clientY
 
       if (event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom) {
-        // console.log("Mouse entered image");
-        // console.log(ref[0])
-        // console.log("ClientX", event.clientX)
-        // console.log("ClientY", event.clientY)
-
-        // console.log("rect LEFT", rect.left)
-        // console.log("rect RIGHT", rect.right)
-
-        // console.log("rect top", rect.top)
-        // console.log("rect bottom", rect.bottom)
-
         const canvas = ref[0].current;
         const ctx = canvas.getContext('2d');
-
 
         //Fixed static property
         // const x = event.clientX - canvas.offsetLeft;
@@ -103,24 +99,41 @@ function App() {
         // x- 1/2 of pixels
         var pixels = ctx.getImageData(x - 5, y - 5, 10, 10).data;
 
-
         for (var i = 0; i < pixels.length; i += 4) {
           var alpha = pixels[i + 3];
+
           if (alpha > 0) { //TODO: anti aliasing around solid lines. Decreasing opacities to fade maybe use something not 0
-            // console.log("Mouse is within 15 pixels of non-transparent section");
-            setSelected(ref[1])
-            return
+            setSelected(ref)
+            if (selected[1] !== ref[1]) {
+              setShowPopup(true);
+              setCursorPosition({ x: clientX, y: clientY });
+              prevHovered.current = ref[1]
+            }
+
+            return true
           } else {
-            // console.log('Not within  pxiels')
-            setSelected("") //TODO improve
+            if (selected[1] !== ref[1]) {
+              setShowPopup(false);
+            }
+            setSelected([null, '']) //TODO improve
           }
         }
 
       }
       else {
-        setSelected("")
+        setSelected([null, ''])
+        setShowPopup(false);
+      }
+      return false
+    }
+    if (!selected[0] || !checkVals(selected)) {
+      for (const ref of refs) {
+        if (checkVals(ref)) {
+          return
+        }
       }
     }
+
   };
 
   function handleRef(ref, id) {
@@ -129,17 +142,8 @@ function App() {
 
 
   const updateSize = (initalLoad) => {
-    // console.log("new Orientation", orientation)
-    // console.log("Prev Orientation ", prevOrientation)
-    // console.log("Orientation Changed ", orientationChanged)
-
-    // console.log("initial Load: ", initalLoad)
-
     const newWidth = isMobile ? width : width * window.devicePixelRatio //For now let user Zoom with window.DevicePixelRatio
     const newHeight = newWidth / containerAspectRatio;
-
-    // console.log("NEW WIDTH: ", newWidth)
-    // console.log("NEW HEIGHT: ", newHeight)
 
     // Get the flex container element
     const flexContainer = document.querySelector('.App');
@@ -151,7 +155,6 @@ function App() {
     const elementStyles = window.getComputedStyle(header);
     const marginTop = parseFloat(elementStyles.getPropertyValue('margin-top'));
     const marginBottom = parseFloat(elementStyles.getPropertyValue('margin-bottom'));
-    console.log(marginBottom)
     const headerHeight = header.offsetHeight + marginTop + marginBottom;
 
 
@@ -171,7 +174,7 @@ function App() {
     const horizontalOffset = Math.floor(((containerWidth * devicePixelRatio) - (imageWidth * devicePixelRatio)) / 2) / devicePixelRatio;
 
     // console.log(`The image is centered by ${verticalOffset}px`);
-    console.log(`The image width is centered by ${offsetWidth}px`);
+    // console.log(`The image width is centered by ${offsetWidth}px`);
 
     setOffsetHeight(headerHeight)
     setOffsetWidth(horizontalOffset)
@@ -232,7 +235,7 @@ function App() {
 
 
   return (
-    <div className={`App`} >
+    <div className={`App`}>
       <div
         onMouseMove={handleMouseMoveNew}
       >
@@ -274,13 +277,15 @@ function App() {
             containerWidth={containerWidth}
             containerHeight={containerHeight}
             onRef={handleRef}
-            selected={selected}
-
+            selected={selected[1]}
+            // onMouseEnter={onMouseEnter}
+            // onMouseLeave={onMouseLeave}
             trailStatus={trailStatus}
           />
         })}
 
       </div>
+      {/* {showPopup && <Popup x={cursorPosition.x} y={cursorPosition.y} />} */}
       {/* <div>PREV: {prevOrientation}</div>
 
       <div>ORIENTATION: {orientation}</div>
